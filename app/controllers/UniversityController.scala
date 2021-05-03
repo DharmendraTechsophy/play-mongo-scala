@@ -5,6 +5,7 @@ import play.api.libs.json.{JsError, JsValue, Json}
 import play.api.mvc._
 import reactivemongo.bson.BSONObjectID
 import repositories.UniversityRepository
+import utils.SecureAction
 
 import javax.inject._
 import scala.concurrent.{ExecutionContext, Future}
@@ -13,13 +14,14 @@ import scala.util.{Failure, Success}
 @Singleton
 class UniversityController @Inject()(
                                    implicit executionContext: ExecutionContext,
+                                   action:SecureAction,
                                    val universityRepository: UniversityRepository,
                                    val controllerComponents: ControllerComponents)
   extends BaseController {
 
 
   def findAll():Action[AnyContent] = {
-    Action.async {
+    action.async {
       universityRepository.findAll().map { res =>
         Ok(Json.toJson(res)).withHeaders("Access-Control-Allow-Origin" -> "*")
       }
@@ -27,7 +29,7 @@ class UniversityController @Inject()(
   }
 
   def findOne(studentId: Int): Action[AnyContent] = {
-    Action.async { _ =>
+    action.async { _ =>
       universityRepository.findOne(studentId).map { universityOpt =>
         universityOpt.fold(Ok(Json.toJson("{}")))(user => Ok(
           Json.toJson(user))).withHeaders("Access-Control-Allow-Origin" -> "*")
@@ -46,7 +48,7 @@ class UniversityController @Inject()(
 
   def create: Action[JsValue] = {
     println("Requesting for Adding the Record......")
-    Action.async(parse.json) {
+    action.async(parse.json) {
       request =>
         println("request is : "+request.body)
         request.body.validate[University].fold(
@@ -63,7 +65,7 @@ class UniversityController @Inject()(
 
   def update: Action[JsValue] = {
     println("Requesting for Updating the Record......")
-    Action.async(parse.json) { request =>
+    action.async(parse.json) { request =>
       println("request is : "+request.body)
       request.body.validate[University].fold(
         error =>
@@ -77,7 +79,7 @@ class UniversityController @Inject()(
 
 
   def delete(studentId: Int): Action[AnyContent] = {
-    Action.async { _ =>
+    action.async { _ =>
       universityRepository.delete(studentId).map { _ =>
         Ok(Json.toJson("{}")).withHeaders("Access-Control-Allow-Origin" -> "*")
       }

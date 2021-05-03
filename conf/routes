@@ -20,16 +20,23 @@ DELETE  /movies/:id            controllers.MovieController.delete(id: String)
 GET     /student/getall               controllers.StudentController.findAll()
 GET     /student/get/:id            controllers.StudentController.findOne(id: Int)
 GET     /student/getbyname/:name          controllers.StudentController.findByName(name:String)
++nocsrf
 POST    /student/create               controllers.StudentController.create()
++nocsrf
 POST     /student/update            controllers.StudentController.update()
++nocsrf
 DELETE  /student/delete/:id            controllers.StudentController.delete(id: Int)
 #POST    /student/createByIdByUser    controllers.StudentController.createByIdByUser()
 
 GET     /university/getall               controllers.UniversityController.findAll()
 GET     /university/get/:id            controllers.UniversityController.findOne(id: Int)
++nocsrf
 GET     /university/getbyname/:name          controllers.UniversityController.findByName(name:String)
++nocsrf
 POST    /university/create               controllers.UniversityController.create()
++nocsrf
 POST     /university/update             controllers.UniversityController.update()
++nocsrf
 DELETE  /university/delete/:id            controllers.UniversityController.delete(id: Int)
 
 
