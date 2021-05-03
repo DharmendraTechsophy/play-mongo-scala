@@ -1,0 +1,41 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# https://www.playframework.com/documentation/latest/ScalaRouting
+# ~~~~
+
+# An example controller showing a sample home page
+#GET     /                           controllers.HomeController.index()
+
+# Map static resources from the /public folder to the /assets URL path
+OPTIONS /*all                       controllers.HomeController.preflight(all)
+
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+GET     /movies                controllers.MovieController.findAll()
+GET     /movies/:id            controllers.MovieController.findOne(id: String)
+POST    /movies                controllers.MovieController.create()
+PUT     /movies/:id            controllers.MovieController.update(id: String)
+DELETE  /movies/:id            controllers.MovieController.delete(id: String)
+
+GET     /student/getall               controllers.StudentController.findAll()
+GET     /student/get/:id            controllers.StudentController.findOne(id: Int)
+GET     /student/getbyname/:name          controllers.StudentController.findByName(name:String)
+POST    /student/create               controllers.StudentController.create()
+POST     /student/update            controllers.StudentController.update()
+DELETE  /student/delete/:id            controllers.StudentController.delete(id: Int)
+#POST    /student/createByIdByUser    controllers.StudentController.createByIdByUser()
+
+GET     /university/getall               controllers.UniversityController.findAll()
+GET     /university/get/:id            controllers.UniversityController.findOne(id: Int)
+GET     /university/getbyname/:name          controllers.UniversityController.findByName(name:String)
+POST    /university/create               controllers.UniversityController.create()
+POST     /university/update             controllers.UniversityController.update()
+DELETE  /university/delete/:id            controllers.UniversityController.delete(id: Int)
+
+
+GET     /user/getall               controllers.UserController.findAll()
+GET     /user/get/:id            controllers.UserController.findOne(id: Int)
+POST    /user/create               controllers.UserController.create()
+POST     /user/update             controllers.UserController.update()
+DELETE  /user/delete/:id            controllers.UserController.delete(id: Int)
+POST     /user/search                           controllers.UserController.search()
